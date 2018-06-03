@@ -12,15 +12,27 @@
 <script type="text/javascript">
     function a() {
         var jsonData = {
-            "head": ["供应商编号", "联系电话", "有效期","成绩内容","商品信息"],
+            "head": ["供应商编号", "联系电话", "有效期", "成绩内容", "商品信息"],
             "body": [
-                    {"id": "1001","tel": "15012345678","time": "2018-6-3 12:20:31","content":"内蒙古呼和浩特市赛罕区...","goods":["苹果","水果"]},
-                    {"id": "1002","tel": "18812341234","time": "2018-6-3 12:46:17","content":"内蒙古呼和浩特市新城区...","goods":"香蕉"}
-                ]
-            };
+                {
+                    "id": "1001",
+                    "tel": "15012345678",
+                    "time": "2018-6-3 12:20:31",
+                    "content": "内蒙古呼和浩特市赛罕区...",
+                    "goods": ["苹果", "水果"]
+                },
+                {
+                    "id": "1002",
+                    "tel": "18812341234",
+                    "time": "2018-6-3 12:46:17",
+                    "content": "内蒙古呼和浩特市新城区...",
+                    "goods": "香蕉"
+                }
+            ]
+        };
         var paramStyle = {
-                "tr":'{height:30pt;text-align:center}',
-            };
+            "tr": '{height:30pt;text-align:center}',
+        };
 
         $.json2excel(jsonData, paramStyle);
     }
