@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script type="text/javascript" src="disc/jquery.js"></script>
+<script type="text/javascript">
+
+    function childCheck(data){
+        var isHave = false;
+        $.each(data,function(k,v){
+            if(typeof v === 'object'){
+                isHave = v.length;
+            }
+        });
+        return isHave;
+    }
+
+    var json = [
+            {"price":[16.8,32,35.1],"num":[1,5,1],"d","f"},
+        ["e","h","i","j"]
+    ];
+    var html = '<table border="1" rules="all">';
+
+        html += '<thead><tr><td>序列1</td><td>序列2</td><td>序列3</td><td>序列4</td></tr></thead>';
+
+    var body = '';
+        body += '<tbody>';
+
+    $.each(json,function(k,v){
+        var length = childCheck(v);
+        if(!length){
+            body += '<tr>';
+            $.each(v,function(key,value){
+                body += '<td>'+value+'</td>';
+            });
+            body += '</tr>';
+        }else{
+            for(var i = 0; i < length ;i++){
+                body += '<tr>';
+                if(i == 0){
+                    $.each(v,function(key,value){
+                        if(typeof value === 'object'){
+                            body += '<td>' + value[0] + '</td>';
+                        }else {
+                            body += '<td rowspan="'+length+'">' + value + '</td>';
+                        }
+                    });
+                }else{
+                    $.each(v,function(key,value){
+                        if(typeof value === 'object'){
+                            body += '<td>' + value[i] + '</td>';
+                        }
+                    });
+                }
+                body += '</tr>';
+            }
+        }
+    });
+
+    html += body;
+    html += '</table>';
+    $("body").append(html);
+</script>
+</body>
+</html>

@@ -1,3 +1,14 @@
+function childCheck(data){
+    var isHave = false;
+    $.each(data,function(k,v){
+        if(typeof v === 'object'){
+            isHave = v.length;
+        }
+    });
+    return isHave;
+}
+
+
 (function ($) {
     $.json2excel = function (jsonData, paramStyle) {
         var id = "json_data_explode";
@@ -18,12 +29,35 @@
         head += '</tr></thead>';
 
         var body = '<tbody>';
-        $.each(jsonData.body, function (k, v) {
-            body += '<tr>';
-            $.each(v, function (key, value) {
-                body += '<td>' + value + '</td>';
-            });
-            body += '</tr>';
+        $.each(jsonData.body,function(k,v){
+            var length = childCheck(v);
+            if(!length){
+                body += '<tr>';
+                $.each(v,function(key,value){
+                    body += '<td>'+value+'</td>';
+                });
+                body += '</tr>';
+            }else{
+                for(var i = 0; i < length ;i++){
+                    body += '<tr>';
+                    if(i == 0){
+                        $.each(v,function(key,value){
+                            if(typeof value === 'object'){
+                                body += '<td>' + value[0] + '</td>';
+                            }else {
+                                body += '<td rowspan="'+length+'">' + value + '</td>';
+                            }
+                        });
+                    }else{
+                        $.each(v,function(key,value){
+                            if(typeof value === 'object'){
+                                body += '<td>' + value[i] + '</td>';
+                            }
+                        });
+                    }
+                    body += '</tr>';
+                }
+            }
         });
         body += '</tbody>';
 
